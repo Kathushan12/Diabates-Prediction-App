@@ -8,5 +8,6 @@ scikit-learn
 joblib
 sqlalchemy
 gunicorn
-psycopg2-binary==2.9.9
+psycopg[binary]==3.3.2
+
 
