@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Diabetes Prediction</title>
+
+  <link rel="stylesheet" href="/static/style.css" />
+
+  <!-- Optional: modern font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <noscript>
+    <div style="padding:12px;margin:12px;border:1px solid rgba(0,0,0,.2);border-radius:12px;">
+      This UI needs JavaScript enabled to submit predictions.
+    </div>
+  </noscript>
+
+  <div class="bg-orbs" aria-hidden="true">
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+    <span class="orb o3"></span>
+  </div>
+
+  <main class="shell">
+    <header class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">🩺</div>
+        <div>
+          <h1>Diabetes Risk Predictor</h1>
+          <p class="muted">ML + FastAPI • Demo only (not medical advice)</p>
+        </div>
+      </div>
+
+      <nav class="links" aria-label="Quick links">
+        <button id="themeBtn" class="chip ghost" type="button" aria-label="Toggle theme">🌙 Theme</button>
+        <a class="chip" href="/docs" target="_blank" rel="noopener noreferrer">API Docs</a>
+        <a class="chip ghost" href="/health" target="_blank" rel="noopener noreferrer">Health</a>
+      </nav>
+    </header>
+
+    <section class="grid">
+      <!-- Form Card -->
+      <article class="card glass lift">
+        <div class="card-head">
+          <h2>Enter patient features</h2>
+          <p class="muted">Fill values and click Predict. We’ll return probability.</p>
+        </div>
+
+        <form id="predictForm" class="form" autocomplete="off">
+          <div class="fields">
+            <label class="field">
+              <span>Pregnancies</span>
+              <input type="number" name="Pregnancies" step="1" min="0" value="2" required />
+            </label>
+
+            <label class="field">
+              <span>Glucose</span>
+              <input type="number" name="Glucose" step="1" min="0" value="120" required />
+            </label>
+
+            <label class="field">
+              <span>Blood Pressure</span>
+              <input type="number" name="BloodPressure" step="1" min="0" value="70" required />
+            </label>
+
+            <label class="field">
+              <span>Skin Thickness</span>
+              <input type="number" name="SkinThickness" step="1" min="0" value="20" required />
+            </label>
+
+            <label class="field">
+              <span>Insulin</span>
+              <input type="number" name="Insulin" step="1" min="0" value="79" required />
+            </label>
+
+            <label class="field">
+              <span>BMI</span>
+              <input type="number" name="BMI" step="0.1" min="0" value="32.0" required />
+            </label>
+
+            <label class="field">
+              <span>Pedigree Function</span>
+              <input type="number" name="DiabetesPedigreeFunction" step="0.001" min="0" value="0.35" required />
+            </label>
+
+            <label class="field">
+              <span>Age</span>
+              <input type="number" name="Age" step="1" min="0" value="29" required />
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="btn" class="btn primary" type="submit" aria-label="Predict diabetes risk">
+              <span class="btn-text">Predict</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+
+            <button id="resetBtn" class="btn ghost" type="button" aria-label="Reset form">Reset</button>
+          </div>
+
+          <p class="tiny muted">
+            Tip: Try extreme values to see probability change. For testing use
+            <a href="/docs" target="_blank" rel="noopener noreferrer">/docs</a>.
+          </p>
+        </form>
+      </article>
+
+      <!-- Result Card -->
+      <aside class="card glass lift">
+        <div class="card-head">
+          <h2>Result</h2>
+          <p class="muted">Prediction output appears here.</p>
+        </div>
+
+        <div id="result" class="result empty" aria-live="polite">
+          <div class="pulse-dot" aria-hidden="true"></div>
+          <p class="muted">Submit the form to get a prediction.</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="mini">
+          <div class="mini-row">
+            <span class="muted">API status</span>
+            <span id="apiStatus" class="status">Checking…</span>
+          </div>
+          <div class="mini-row">
+            <span class="muted">Model</span>
+            <span id="modelLoaded" class="status">—</span>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="history">
+          <div class="history-head">
+            <h3>Recent predictions</h3>
+            <button id="clearHistory" class="btn ghost small" type="button">Clear</button>
+          </div>
+
+          <div id="historyList" class="history-list muted">No history yet.</div>
+        </div>
+      </aside>
+    </section>
+
+    <footer class="foot muted">
+      Built for learning • Improve it: add auth, logging, model monitoring, better calibration.
+    </footer>
+  </main>
+
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
