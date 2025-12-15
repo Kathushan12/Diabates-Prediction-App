@@ -19,4 +19,5 @@ EXPOSE 8000
 # IMPORTANT:
 # - bind to 0.0.0.0 so cloud can reach it
 # - use $PORT if the platform sets it
-CMD ["sh", "-c", "cd /app/backend && uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
+CMD ["sh", "-c", "cd /app/backend && uvicorn app.main:app --host 0.0.0.0 --port 8000"]
+
